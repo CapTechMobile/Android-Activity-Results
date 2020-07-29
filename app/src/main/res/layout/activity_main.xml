@@ -1,18 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Heading"
+                android:text="@string/textview_location_permission" />
+
+            <ImageView
+                android:id="@+id/icon_location_permission"
+                android:layout_width="@dimen/permission_icon_size"
+                android:layout_height="@dimen/permission_icon_size"
+                android:src="@drawable/ic_location"
+                android:tint="@color/permission_icon_color"
+                tools:tint="@color/disabled" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Heading"
+                android:text="@string/textview_camera_permission" />
+
+            <ImageView
+                android:id="@+id/icon_camera_permission"
+                android:layout_width="@dimen/permission_icon_size"
+                android:layout_height="@dimen/permission_icon_size"
+                android:src="@drawable/ic_camera"
+                android:tint="@color/permission_icon_color"
+                tools:tint="@color/disabled" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Heading"
+                android:text="@string/textview_microphone_permission" />
+
+            <ImageView
+                android:id="@+id/icon_microphone_permission"
+                android:layout_width="@dimen/permission_icon_size"
+                android:layout_height="@dimen/permission_icon_size"
+                android:src="@drawable/ic_mic"
+                android:tint="@color/permission_icon_color"
+                tools:src="@drawable/ic_mic_on"
+                tools:tint="@color/enabled" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        style="@style/Button"
+        android:drawableStart="@drawable/ic_location_on"
+        android:onClick="onRequestLocationClick"
+        android:text="@string/button_request_location_permission" />
+
+    <Button
+        style="@style/Button"
+        android:drawableStart="@drawable/ic_camera_on"
+        android:onClick="onRequestCameraClick"
+        android:text="@string/button_request_camera_permission" />
+
+    <Button
+        style="@style/Button"
+        android:drawableStart="@drawable/ic_mic_on"
+        android:onClick="onRequestMicClick"
+        android:text="@string/button_request_microphone_permission" />
+
+    <Button
+        style="@style/Button"
+        android:drawableStart="@drawable/ic_permission_camera_mic"
+        android:onClick="onRequestAllClick"
+        android:text="@string/button_request_all_permissions" />
+
+</LinearLayout>

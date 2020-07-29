@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Android-Activity-Results</string>
+
+    <string name="alertdialog_permission_request_heading">Permission(s) Needed</string>
+    <string name="alertdialog_permission_request_description">The app needs this permission in order to demonstrate the usage of the ActivityResultsContract.</string>
+    <string name="alertdialog_permissions_request_description">The app needs all these permissions in order to demonstrate the usage of the ActivityResultsContract.</string>
+
+    <string name="textview_location_permission">Location Permission</string>
+    <string name="textview_camera_permission">Camera Permission</string>
+    <string name="textview_microphone_permission">Microphone Permission</string>
+
+    <string name="button_request_location_permission">Request Location Permission</string>
+    <string name="button_request_camera_permission">Request Camera Permission</string>
+    <string name="button_request_microphone_permission">Request Microphone Permission</string>
+    <string name="button_request_all_permissions">Request All Permissions</string>
+
+    <string name="button_ok">Okay</string>
+    <string name="button_cancel">Cancel</string>
 </resources>
