@@ -1,4 +1,4 @@
-package com.mtl3jx.android_activity_results
+package com.captech.android_activity_results
 
 import android.Manifest
 import android.app.AlertDialog
@@ -14,7 +14,7 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.mtl3jx.android_activity_results.databinding.ActivityMainBinding
+import com.captech.android_activity_results.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
