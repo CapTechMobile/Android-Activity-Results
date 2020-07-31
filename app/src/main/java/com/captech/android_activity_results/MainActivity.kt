@@ -1,16 +1,11 @@
 package com.captech.android_activity_results
 
 import android.Manifest
-import android.app.AlertDialog
 import android.content.pm.PackageManager
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -18,7 +13,7 @@ import com.captech.android_activity_results.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var mBinding: ActivityMainBinding
+    private lateinit var mBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,256 +21,132 @@ class MainActivity : AppCompatActivity() {
         setContentView(mBinding.root)
 
         // initialize icon views
-        updateLocationIcon(checkLocationPermissions())
-        updateCameraIcon(checkCameraPermissions())
-        updateMicIcon(checkMicPermissions())
+        mBinding.iconLocationPermission.isEnabled =
+            (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION))
+        mBinding.iconCameraPermission.isEnabled =
+            (checkPermission(Manifest.permission.CAMERA))
+        mBinding.iconMicrophonePermission.isEnabled =
+            (checkPermission(Manifest.permission.RECORD_AUDIO))
+
     }
 
+    /**
+     * Function for onClick from XML
+     */
     fun onRequestLocationClick(view: View) {
-        requestPermission(Manifest.permission.ACCESS_FINE_LOCATION, mLocationPermissionCallback)
+        mLocationPermissionCallback.launch(Manifest.permission.ACCESS_FINE_LOCATION)
     }
 
+    /**
+     * Function for onClick from XML
+     */
     fun onRequestCameraClick(view: View) {
-        requestPermission(Manifest.permission.CAMERA, mCameraPermissionCallback)
+        mCameraPermissionCallback.launch(Manifest.permission.CAMERA)
     }
 
+    /**
+     * Function for onClick from XML
+     */
     fun onRequestMicClick(view: View) {
-        requestPermission(Manifest.permission.RECORD_AUDIO, mMicPermissionCallback)
+        mMicPermissionCallback.launch(Manifest.permission.RECORD_AUDIO)
     }
 
+    /**
+     * Function for onClick from XML
+     */
     fun onRequestAllClick(view: View) {
-        when {
-            checkLocationPermissions() && checkCameraPermissions() && checkMicPermissions() -> {
-                Toast.makeText(
-                    this,
-                    "All permissions already granted!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-            shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)
-                    || shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)
-                    || shouldShowRequestPermissionRationale(Manifest.permission.RECORD_AUDIO) -> {
-
-                val builder = AlertDialog.Builder(this)
-                builder.setTitle(R.string.alertdialog_permission_request_heading)
-                    .setMessage(R.string.alertdialog_permissions_request_description)
-                    .setNegativeButton(R.string.button_cancel) { dialog, _ -> dialog.dismiss() }
-                    .setPositiveButton(R.string.button_ok) { _, _ ->
-                        mAllPermissionsCallback.launch(
-                            arrayOf(
-                                Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.CAMERA,
-                                Manifest.permission.RECORD_AUDIO
-                            )
-                        )
-                    }
-                builder.create().show()
-
-            }
-            else -> {
-                // You can directly ask for the permission.
-                mAllPermissionsCallback.launch(
-                    arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.RECORD_AUDIO
-                    )
-                )
-            }
-        }
-    }
-
-    private fun requestPermission(permission: String, callback: ActivityResultLauncher<String>) {
-        when {
-            ContextCompat.checkSelfPermission(
-                this,
-                permission
-            ) == PackageManager.PERMISSION_GRANTED -> {
-                // You can use the API that requires the permission.
-
-                Toast.makeText(
-                    this,
-                    "Permission $permission already granted!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-            shouldShowRequestPermissionRationale(permission) -> {
-                // In an educational UI, explain to the user why your app requires this
-                // permission for a specific feature to behave as expected. In this UI,
-                // include a "cancel" or "no thanks" button that allows the user to
-                // continue using your app without granting the permission.
-
-                val builder = AlertDialog.Builder(this)
-                builder.setTitle(R.string.alertdialog_permission_request_heading)
-                    .setMessage(R.string.alertdialog_permission_request_description)
-                    .setNegativeButton(R.string.button_cancel) { dialog, _ -> dialog.dismiss() }
-                    .setPositiveButton(R.string.button_ok) { _, _ ->
-                        // request permission again
-                        callback.launch(permission)
-                    }
-                builder.create().show()
-            }
-            else -> {
-                // You can directly ask for the permission.
-                // The registered ActivityResultCallback gets the result of this request.
-                callback.launch(permission)
-            }
-        }
+        // You can directly ask for the permission.
+        permissionCallback.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.CAMERA,
+                Manifest.permission.RECORD_AUDIO
+            )
+        )
     }
 
     /**
-     * @return true if the app has been granted location permissions
+     * Utility for checking if a specific permission is already granted or not
      */
-    private fun checkLocationPermissions(): Boolean {
-        return checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-    }
-
-    /**
-     * @return true if the app has been granted camera permissions
-     */
-    private fun checkCameraPermissions(): Boolean {
-        return checkPermission(Manifest.permission.CAMERA)
-    }
-
-    /**
-     * @return true if the app has been granted microphone permissions
-     */
-    private fun checkMicPermissions(): Boolean {
-        return checkPermission(Manifest.permission.RECORD_AUDIO)
-    }
-
     private fun checkPermission(permission: String): Boolean {
         return ContextCompat.checkSelfPermission(
             this, permission
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun updateLocationIcon(enabled: Boolean) {
-        updateIcon(
-            enabled,
-            mBinding.iconLocationPermission,
-            R.drawable.ic_location_on,
-            R.drawable.ic_location_off
-        )
-    }
 
-    private fun updateCameraIcon(enabled: Boolean) {
-        updateIcon(
-            enabled,
-            mBinding.iconCameraPermission,
-            R.drawable.ic_camera_on,
-            R.drawable.ic_off
-        )
-    }
-
-    private fun updateMicIcon(enabled: Boolean) {
-        updateIcon(
-            enabled,
-            mBinding.iconMicrophonePermission,
-            R.drawable.ic_mic_on,
-            R.drawable.ic_mic_off
-        )
-    }
-
-    /**
-     * update the imageview's drawable and tint depending on the @param {enabled}
-     *
-     * @param enabled true if the permission this imageView represents has been granted
-     */
-    private fun updateIcon(
-        enabled: Boolean,
-        imageView: ImageView,
-        enabledIcon: Int,
-        disabledIcon: Int
-    ) {
-        imageView.setColorFilter(
-            ContextCompat.getColor(this, if (enabled) R.color.enabled else R.color.disabled),
-            PorterDuff.Mode.SRC_IN
-        )
-        imageView.setImageDrawable(
-            ContextCompat.getDrawable(this, if (enabled) enabledIcon else disabledIcon)
-        )
-    }
-
-    private val mLocationPermissionCallback: ActivityResultLauncher<String> =
+    private val mLocationPermissionCallback =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-            updateLocationIcon(isGranted)
+            //update image
+            mBinding.iconLocationPermission.isEnabled = isGranted
 
-            if (isGranted) {
-                // Permission is granted. Continue the action or workflow in your app.
-                Toast.makeText(
-                    this,
-                    "Location permission has been granted!",
-                    Toast.LENGTH_SHORT
-                ).show()
-
+            val message = if (isGranted) {
+                "Location permission has been granted!"
             } else {
-                // Explain to the user that the feature is unavailable because the
-                // features requires a permission that the user has denied. At the
-                // same time, respect the user's decision. Don't link to system
-                // settings in an effort to convince the user to change their
-                // decision.
-                Toast.makeText(this, "Location permission denied! :(", Toast.LENGTH_SHORT)
-                    .show()
+                "Location permission denied! :("
             }
+
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
 
-    private val mCameraPermissionCallback: ActivityResultLauncher<String> =
+    private val mCameraPermissionCallback =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-            updateCameraIcon(isGranted)
+            //update image
+            mBinding.iconCameraPermission.isEnabled = isGranted
 
-            if (isGranted) {
-                Toast.makeText(
-                    this,
-                    "Camera permission has been granted!",
-                    Toast.LENGTH_SHORT
-                ).show()
-
+            val message = if (isGranted) {
+                "Camera permission has been granted!"
             } else {
-                Toast.makeText(this, "Camera permission denied! :(", Toast.LENGTH_SHORT)
-                    .show()
+                "Camera permission denied! :("
             }
+
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
 
-    private val mMicPermissionCallback: ActivityResultLauncher<String> =
+    private val mMicPermissionCallback =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-            updateMicIcon(isGranted)
+            //update image
+            mBinding.iconMicrophonePermission.isEnabled = isGranted
 
-            if (isGranted) {
-                Toast.makeText(
-                    this,
-                    "Microphone permission has been granted!",
-                    Toast.LENGTH_SHORT
-                ).show()
-
+            val message = if (isGranted) {
+                "Microphone permission has been granted!"
             } else {
-                Toast.makeText(this, "Microphone permission denied! :(", Toast.LENGTH_SHORT)
-                    .show()
+                "Microphone permission denied! :("
             }
+
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
 
-    private val mAllPermissionsCallback =
+    private val permissionCallback =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { map ->
-            updateLocationIcon(checkLocationPermissions())
-            updateCameraIcon(checkCameraPermissions())
-            updateMicIcon(checkMicPermissions())
-            var permissionDetails: String = ""
-            for (entry in map.entries) {
+
+            var permissionDetails = ""
+            map.entries.forEach { entry ->
                 Log.d(
                     this@MainActivity.javaClass.simpleName,
                     "Permission ${entry.key} Granted: ${entry.value}"
                 )
+
+                //add to details
                 if (entry.value) permissionDetails += "\n${entry.key}"
+
+                //check icons for updating.
+                when (entry.key) {
+                    Manifest.permission.ACCESS_FINE_LOCATION ->
+                        mBinding.iconLocationPermission.isEnabled = entry.value
+                    Manifest.permission.CAMERA ->
+                        mBinding.iconCameraPermission.isEnabled = entry.value
+                    Manifest.permission.RECORD_AUDIO ->
+                        mBinding.iconMicrophonePermission.isEnabled = entry.value
+                }
             }
 
-            val msg = if (permissionDetails.isEmpty()) {
-                "All permissions have already been granted / denied by the user."
-            } else {
-                "The following permissions have been granted: $permissionDetails"
+            if (permissionDetails.isEmpty()) {
+                Toast.makeText(
+                    this,
+                    "The following permissions have been granted: $permissionDetails",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-
-            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         }
 }
