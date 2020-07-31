@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.launch
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.captech.android_activity_results.databinding.ActivityMainBinding
@@ -64,6 +65,19 @@ class MainActivity : AppCompatActivity() {
             )
         )
     }
+
+    /**
+     * Function for onClick from XML
+     */
+    fun onRequestMessage(view: View) {
+        messageContract.launch()
+    }
+
+
+    private val messageContract = registerForActivityResult(MessageContract()) {
+        Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+    }
+
 
     /**
      * Utility for checking if a specific permission is already granted or not
