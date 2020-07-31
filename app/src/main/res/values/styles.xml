@@ -8,7 +8,7 @@
     </style>
 
     <style name="Heading">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">10dp</item>
         <item name="android:textAlignment">center</item>
