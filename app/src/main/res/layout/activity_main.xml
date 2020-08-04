@@ -128,4 +128,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/microphone_button" />
 
+
+    <Button
+        android:id="@+id/start_message_button"
+        style="@style/Button"
+        android:layout_marginTop="50dp"
+        android:drawableStart="@android:drawable/ic_dialog_email"
+        android:onClick="onRequestMessage"
+        android:text="@string/request_custom_message"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/request_all_button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
