@@ -17,6 +17,10 @@ class MessageActivity : AppCompatActivity() {
         setContentView(mBinding.root)
     }
 
+    /**
+     * launched onClick in the XML
+     * sets this finishing activity's result to the text string entered by the user
+     */
     fun onSubmitMessage(view: View) {
         val result =
             Intent().putExtra(MessageContract.MESSAGE, mBinding.messageInput.text.toString())
