@@ -14,9 +14,12 @@
     <string name="button_request_microphone_permission">Request Microphone Permission</string>
     <string name="button_request_all_permissions">Request All Permissions</string>
 
-    <string name="button_ok">Okay</string>
-    <string name="button_cancel">Cancel</string>
+    <string name="button_take_photo">Take Photo</string>
+
     <string name="request_custom_message">Request Custom Message</string>
     <string name="enter_your_message">Enter Your Message!</string>
     <string name="submit_message">Submit Message</string>
+
+    <string name="button_ok">Okay</string>
+    <string name="button_cancel">Cancel</string>
 </resources>

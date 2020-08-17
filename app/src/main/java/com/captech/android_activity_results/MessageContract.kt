@@ -33,6 +33,4 @@ class MessageContract : ActivityResultContract<Unit, String>() {
             message
         }
     }
-
-
 }

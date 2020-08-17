@@ -1,143 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/location_permission_heading"
-        style="@style/Heading"
-        android:text="@string/textview_location_permission"
-        app:layout_constraintEnd_toStartOf="@+id/camera_permission_heading"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/camera_permission_heading"
-        style="@style/Heading"
-        android:text="@string/textview_camera_permission"
-        app:layout_constraintEnd_toStartOf="@id/microphone_permission_heading"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@id/location_permission_heading"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/location_permission_heading"
+            style="@style/Heading"
+            android:text="@string/textview_location_permission"
+            app:layout_constraintEnd_toStartOf="@+id/camera_permission_heading"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/microphone_permission_heading"
-        style="@style/Heading"
-        android:text="@string/textview_microphone_permission"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/camera_permission_heading"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/camera_permission_heading"
+            style="@style/Heading"
+            android:text="@string/textview_camera_permission"
+            app:layout_constraintEnd_toStartOf="@id/microphone_permission_heading"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/location_permission_heading"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/header_barrier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="location_permission_heading,
+        <TextView
+            android:id="@+id/microphone_permission_heading"
+            style="@style/Heading"
+            android:text="@string/textview_microphone_permission"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/camera_permission_heading"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/header_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="location_permission_heading,
         camera_permission_heading,
         microphone_permission_heading" />
 
+        <ImageView
+            android:id="@+id/icon_location_permission"
+            android:layout_width="@dimen/permission_icon_size"
+            android:layout_height="@dimen/permission_icon_size"
+            android:src="@drawable/ic_location"
+            android:tint="@color/permission_icon_color"
+            app:layout_constraintEnd_toEndOf="@id/location_permission_heading"
+            app:layout_constraintStart_toStartOf="@id/location_permission_heading"
+            app:layout_constraintTop_toBottomOf="@id/header_barrier"
+            tools:tint="@color/disabled" />
 
-    <ImageView
-        android:id="@+id/icon_location_permission"
-        android:layout_width="@dimen/permission_icon_size"
-        android:layout_height="@dimen/permission_icon_size"
-        android:src="@drawable/ic_location"
-        android:tint="@color/permission_icon_color"
-        app:layout_constraintEnd_toEndOf="@id/location_permission_heading"
-        app:layout_constraintStart_toStartOf="@id/location_permission_heading"
-        app:layout_constraintTop_toBottomOf="@id/header_barrier"
-        tools:tint="@color/disabled" />
+        <ImageView
+            android:id="@+id/icon_camera_permission"
+            android:layout_width="@dimen/permission_icon_size"
+            android:layout_height="@dimen/permission_icon_size"
+            android:src="@drawable/ic_camera"
+            android:tint="@color/permission_icon_color"
+            app:layout_constraintEnd_toEndOf="@id/camera_permission_heading"
+            app:layout_constraintStart_toStartOf="@id/camera_permission_heading"
+            app:layout_constraintTop_toBottomOf="@id/header_barrier"
+            tools:tint="@color/disabled" />
 
-    <ImageView
-        android:id="@+id/icon_camera_permission"
-        android:layout_width="@dimen/permission_icon_size"
-        android:layout_height="@dimen/permission_icon_size"
-        android:src="@drawable/ic_camera"
-        android:tint="@color/permission_icon_color"
-        app:layout_constraintEnd_toEndOf="@id/camera_permission_heading"
-        app:layout_constraintStart_toStartOf="@id/camera_permission_heading"
-        app:layout_constraintTop_toBottomOf="@id/header_barrier"
-        tools:tint="@color/disabled" />
+        <ImageView
+            android:id="@+id/icon_microphone_permission"
+            android:layout_width="@dimen/permission_icon_size"
+            android:layout_height="@dimen/permission_icon_size"
+            android:src="@drawable/ic_mic"
+            android:tint="@color/permission_icon_color"
+            app:layout_constraintEnd_toEndOf="@id/microphone_permission_heading"
+            app:layout_constraintStart_toStartOf="@id/microphone_permission_heading"
+            app:layout_constraintTop_toBottomOf="@id/header_barrier"
+            tools:src="@drawable/ic_mic_on"
+            tools:tint="@color/enabled" />
 
-    <ImageView
-        android:id="@+id/icon_microphone_permission"
-        android:layout_width="@dimen/permission_icon_size"
-        android:layout_height="@dimen/permission_icon_size"
-        android:src="@drawable/ic_mic"
-        android:tint="@color/permission_icon_color"
-        app:layout_constraintEnd_toEndOf="@id/microphone_permission_heading"
-        app:layout_constraintStart_toStartOf="@id/microphone_permission_heading"
-        app:layout_constraintTop_toBottomOf="@id/header_barrier"
-        tools:src="@drawable/ic_mic_on"
-        tools:tint="@color/enabled" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/icon_barrier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="icon_location_permission,
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/icon_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="icon_location_permission,
         icon_camera_permission,
         icon_microphone_permission" />
 
+        <Button
+            android:id="@+id/location_button"
+            style="@style/Button"
+            android:layout_marginTop="50dp"
+            android:drawableStart="@drawable/ic_location_on"
+            android:onClick="onRequestLocationClick"
+            android:text="@string/button_request_location_permission"
+            app:layout_constraintTop_toBottomOf="@id/icon_barrier" />
 
-    <Button
-        android:id="@+id/location_button"
-        style="@style/Button"
-        android:layout_marginTop="50dp"
-        android:drawableStart="@drawable/ic_location_on"
-        android:onClick="onRequestLocationClick"
-        android:text="@string/button_request_location_permission"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/icon_barrier" />
+        <Button
+            android:id="@+id/camera_button"
+            style="@style/Button"
+            android:drawableStart="@drawable/ic_camera_on"
+            android:onClick="onRequestCameraClick"
+            android:text="@string/button_request_camera_permission"
+            app:layout_constraintTop_toBottomOf="@id/location_button" />
 
-    <Button
-        android:id="@+id/camera_button"
-        style="@style/Button"
-        android:drawableStart="@drawable/ic_camera_on"
-        android:onClick="onRequestCameraClick"
-        android:text="@string/button_request_camera_permission"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/location_button" />
+        <Button
+            android:id="@+id/microphone_button"
+            style="@style/Button"
+            android:drawableStart="@drawable/ic_mic_on"
+            android:onClick="onRequestMicClick"
+            android:text="@string/button_request_microphone_permission"
+            app:layout_constraintTop_toBottomOf="@id/camera_button" />
 
-    <Button
-        android:id="@+id/microphone_button"
-        style="@style/Button"
-        android:drawableStart="@drawable/ic_mic_on"
-        android:onClick="onRequestMicClick"
-        android:text="@string/button_request_microphone_permission"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/camera_button" />
+        <Button
+            android:id="@+id/request_all_button"
+            style="@style/Button"
+            android:drawableStart="@drawable/ic_permission_camera_mic"
+            android:onClick="onRequestAllClick"
+            android:text="@string/button_request_all_permissions"
+            app:layout_constraintTop_toBottomOf="@id/microphone_button" />
 
-    <Button
-        android:id="@+id/request_all_button"
-        style="@style/Button"
-        android:drawableStart="@drawable/ic_permission_camera_mic"
-        android:onClick="onRequestAllClick"
-        android:text="@string/button_request_all_permissions"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/microphone_button" />
+        <Button
+            android:id="@+id/take_photo_button"
+            style="@style/Button"
+            android:layout_marginTop="50dp"
+            android:drawableStart="@drawable/ic_camera_on"
+            android:onClick="onTakePhotoClick"
+            android:text="@string/button_take_photo"
+            app:layout_constraintTop_toBottomOf="@id/request_all_button" />
 
+        <ImageView
+            android:id="@+id/photo_preview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/take_photo_button" />
 
-    <Button
-        android:id="@+id/start_message_button"
-        style="@style/Button"
-        android:layout_marginTop="50dp"
-        android:drawableStart="@android:drawable/ic_dialog_email"
-        android:onClick="onRequestMessage"
-        android:text="@string/request_custom_message"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/request_all_button" />
+        <Button
+            android:id="@+id/start_message_button"
+            style="@style/Button"
+            android:layout_marginTop="50dp"
+            android:drawableStart="@android:drawable/ic_dialog_email"
+            android:onClick="onRequestMessage"
+            android:text="@string/request_custom_message"
+            app:layout_constraintTop_toBottomOf="@id/photo_preview" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
