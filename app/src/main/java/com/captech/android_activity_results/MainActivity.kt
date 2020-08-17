@@ -149,7 +149,7 @@ class MainActivity : AppCompatActivity() {
      */
     fun onRequestMessage(view: View) {
         registerForActivityResult(MessageContract()) {
-            mBinding.messageTextview.text = it
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         }.launch()
     }
 
